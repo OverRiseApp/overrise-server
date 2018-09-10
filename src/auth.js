@@ -16,18 +16,14 @@ async function verify(token) {
 
 module.exports = function(app) {
 	app.use(async (req, res, next) => {
-		const auth = req.headers.authorization
+		try {
+			const auth = req.headers.authorization
 
-		if (auth && auth.indexOf('Bearer') === 0) {
 			const token = auth.split(' ')[1]
-			try {
-				const user_id = await verify(token)
-				res.locals.user_id = user_id
-				next()
-			} catch (e) {
-				res.status(401).end()
-			}
-		} else {
+			const user_id = await verify(token)
+			res.locals.user_id = user_id
+			next()
+		} catch (e) {
 			res.status(401).end()
 		}
 	})
