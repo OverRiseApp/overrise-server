@@ -1,4 +1,4 @@
-require('dotenv-extended').load({ silent: false, errorOnMissing: true, errorCheckProcess: true })
+require('dotenv-extended').load({ silent: false, errorOnMissing: true, includeProcessEnv: true })
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'production') {
   if (process.env.SENTRY_DSN !== '') {
