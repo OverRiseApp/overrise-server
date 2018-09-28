@@ -1,28 +1,40 @@
 {
-  "name": "bible-timeline-notebook-server",
-  "version": "1.0.0",
-  "description": "Server for bible-timeline-notebook",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Michael Salim",
-  "license": "MIT",
-  "dependencies": {
-    "body-parser": "^1.18.2",
-    "cors": "^2.8.4",
-    "dotenv": "^5.0.1",
+	"name": "bible-timeline-notebook-server",
+	"version": "1.0.0",
+	"description": "Server for bible-timeline-notebook",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"database-test": "bash run-docker-container.sh",
+		"watch-database": "npm-watch database-test"
+	},
+	"author": "Michael Salim",
+	"license": "MIT",
+	"dependencies": {
+		"body-parser": "^1.18.2",
+		"cors": "^2.8.4",
+		"dotenv": "^5.0.1",
 		"dotenv-extended": "2.3.0",
-    "express": "^4.16.3",
-    "google-auth-library": "^1.4.0",
-    "knex": "^0.15.2",
-    "pg": "^7.4.3",
-    "postgraphile": "^4.0.0-beta.5",
-    "raven": "^2.6.4"
-  },
-  "devDependencies": {
-    "nodemon": "^1.17.3"
-  }
+		"express": "^4.16.3",
+		"google-auth-library": "^1.4.0",
+		"knex": "^0.15.2",
+		"pg": "^7.4.3",
+		"postgraphile": "^4.0.0-beta.5",
+		"raven": "^2.6.4"
+	},
+	"devDependencies": {
+		"nodemon": "^1.17.3",
+		"npm-watch": "^0.3.0"
+	},
+	"watch": {
+		"database-test": {
+			"patterns": [
+				"sql"
+			],
+			"extensions": "sql",
+			"quiet": false
+		}
+	}
 }
