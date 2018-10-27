@@ -1,13 +1,29 @@
 const { postgraphile } = require('postgraphile')
 const { DBInfo } = require('./database')
 
+const jwt = require('jsonwebtoken')
+
 module.exports = function(app) {
 	app.use((req, res, next) =>
 		postgraphile(DBInfo, 'public', {
-			pgSettings: () => {
+			pgSettings: async () => {
+				if (!!req.headers.authorization) {
+					try {
+						// Normal http connection
+						const authorization = req.headers.authorization
+						const token = authorization.split(' ')[1]
+
+						const data = jwt.verify(token, process.env.JWT_SECRET, { audience: process.env.SITE_NAME })
+						return {
+							'jwt.claims.user_id': data.user_id,
+							role: data.role,
+						}
+					} catch (e) {
+						res.status(401).end()
+					}
+				}
 				return {
-					'user.id': res.locals.user_id,
-					role: 'postgres', // Temp
+					role: 'anonymous',
 				}
 			},
 			watchPg: true,
