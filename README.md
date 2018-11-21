@@ -36,5 +36,5 @@ Thus, when deploying, there will be 2 processes(PostgreSQL and NodeJS) to start.
 2. `docker push overrise/overrise-db`
 
 ### Server
-1. `docker build -t overrise/overrise-server .`
+1. `docker build -f ./src/Dockerfile -t overrise/overrise-server .`
 2. `docker push overrise/overrise-server`

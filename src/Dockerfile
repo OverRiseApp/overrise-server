@@ -4,7 +4,7 @@ WORKDIR /temp-build
 
 COPY package*.json ./
 COPY yarn.lock ./
-RUN yarn
+RUN yarn --prod --ignore-engines
 
 COPY . .
 
