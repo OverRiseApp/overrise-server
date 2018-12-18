@@ -1,4 +1,4 @@
-\c bible  
+\c overrise  
 
 create type jwt_token as (
   role text,

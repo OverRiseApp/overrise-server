@@ -1,6 +1,6 @@
-CREATE DATABASE bible;
+CREATE DATABASE overrise;
 
-\c bible
+\c overrise
 
 CREATE EXTENSION tablefunc;
 

@@ -1,4 +1,4 @@
-\c bible
+\c overrise
 
 INSERT INTO "user" ("first_name", "last_name", "email_address", "created_at")
 VALUES ('Test', 'User', 'test@test.test', 'now()');

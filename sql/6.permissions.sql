@@ -1,4 +1,4 @@
-\c bible 
+\c overrise 
 
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO standard_user;
 

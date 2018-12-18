@@ -1,4 +1,4 @@
-\c bible  
+\c overrise  
 
 Create Or Replace Function viewer() Returns "user" As $$
   select *
