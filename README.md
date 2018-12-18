@@ -20,6 +20,15 @@ Thus, when deploying, there will be 2 processes(PostgreSQL and NodeJS) to start.
 > A pull request to make this work on Windows will be very much appreciated.  
 > Otherwise, you can use [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to run this project on Windows 10.  
 
+### Environment Variables
+
+To run the project, you'll need to specify the environment variables in an `.env` file (unless you're running with docker or others)
+
+For development, simply copy `.env.defaults` to `.env`. This file contains the default environment that should get the project started.    
+```shell
+cp .env.defaults .env
+```
+
 ### Running the project
 
 #### Database
@@ -29,7 +38,7 @@ Thus, when deploying, there will be 2 processes(PostgreSQL and NodeJS) to start.
 1. `yarn`
 2. `yarn dev`
 
-## Development 
+## Docker
 
 ### Database
 1. `docker build -t overrise/overrise-db .`
@@ -38,3 +47,21 @@ Thus, when deploying, there will be 2 processes(PostgreSQL and NodeJS) to start.
 ### Server
 1. `docker build -f ./src/Dockerfile -t overrise/overrise-server .`
 2. `docker push overrise/overrise-server`
+
+## Development
+
+### Adding DB migrations
+
+We use knex migrations that is run before the server does anything else. This can be disabled with the `RUN_DB_MIGRATION` environment variable.
+
+To modify the database in any way, remember to:
+
+1. Update the SQL file in `sql/` folder
+2. Create and fill the migration file with `knex migrate:make <name>`
+3. Add an entry for migration in `7.test_data.sql` to indicate that the migration has been ran
+
+> Example: `INSERT INTO "knex_migrations" ("name", "batch", "migration_time") VALUES ('20181218083635_file_name.js', 1, now());
+`
+
+Simply modify the file name and you're set.
+
