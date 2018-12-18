@@ -8,7 +8,11 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'production') {
 }
 
 // Check for env
-if (!process.env.ENABLE_GRAPHIQL.match(/^(true|false)$/i) || !process.env.GENEROUS_CORS.match(/^(true|false)$/i)) {
+if (
+	!process.env.ENABLE_GRAPHIQL.match(/^(true|false)$/i) ||
+	!process.env.GENEROUS_CORS.match(/^(true|false)$/i) ||
+	!process.env.RUN_DB_MIGRATION.match(/^(true|false)$/i)
+) {
 	// If any is not filled, exit
 	console.error('Error: 1 or more necessary environment variables are not set correctly.')
 	process.exit(1)
@@ -18,8 +22,8 @@ const knex = require('./src/database').knex
 
 Promise.resolve()
 	.then(() => {
-    // TODO: Make an env to tell whether to run migration or not
-		return true ? knex.migrate.latest() : Promise.resolve()
+		const shouldRunMigration = !!process.env.RUN_DB_MIGRATION.match(/true/i)
+		return shouldRunMigration ? knex.migrate.latest() : Promise.resolve()
 	})
 	.then(() => {
 		const server = require('./src/server')
