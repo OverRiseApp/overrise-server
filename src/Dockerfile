@@ -14,5 +14,5 @@ WORKDIR /var/www/backend/
 
 COPY --from=dependencies /temp-build/ ./
 
-EXPOSE 8000
+EXPOSE 4000
 CMD ["node", "./index.js"]
