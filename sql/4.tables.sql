@@ -7,6 +7,18 @@ create type jwt_token as (
 
 CREATE TYPE user_type AS ENUM ('standard_user');
 
+Create Table "knex_migrations" (
+  id serial primary key,
+  name varchar(255) NULL,
+  batch integer NULL,
+  migration_time timestamptz NULL
+);
+
+Create Table "knex_migrations_lock" (
+  index serial primary key,
+  is_locked integer NULL
+);
+
 Create Table "user" (
   id serial primary key,
   first_name text not null DEFAULT '',

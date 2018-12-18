@@ -10,7 +10,10 @@ const DBInfo = {
 }
 exports.DBInfo = DBInfo
 
-exports.knex = require('knex')({
+const knexFile = {
   client: 'pg',
   connection: DBInfo,
-})
+}
+exports.knexFile = knexFile
+
+exports.knex = require('knex')(knexFile)
