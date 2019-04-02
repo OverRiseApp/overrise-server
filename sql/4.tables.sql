@@ -55,3 +55,10 @@ Create Table verses_summary (
   end_verse int not null check(end_verse >= 1),
   created_at timestamptz not null default now()
 );
+
+-- This will hold the chapters for x day
+CREATE TABLE chapter_of_the_day (
+  chapter_date DATE NOT NULL PRIMARY KEY,
+  book_id INT NOT NULL,
+  chapter INT NOT NULL
+)
