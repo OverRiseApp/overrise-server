@@ -44,9 +44,17 @@ cp .env.defaults .env
 1. `docker build -t overrise/overrise-db .`
 2. `docker push overrise/overrise-db`
 
+```
+docker build -t overrise/overrise-db . && docker push overrise/overrise-db
+```
+
 ### Server
 1. `docker build -f ./src/Dockerfile -t overrise/overrise-server .`
 2. `docker push overrise/overrise-server`
+
+```
+docker build -f ./src/Dockerfile -t overrise/overrise-server . && docker push overrise/overrise-server
+```
 
 ## Development
 
