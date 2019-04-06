@@ -26,9 +26,9 @@ module.exports = function(app) {
 					role: 'anonymous',
 				}
 			},
-			watchPg: true,
 			graphqlRoute: '/api/graphql',
 			graphiqlRoute: '/api/graphiql',
+			enhanceGraphiql: true,
 			graphiql: !!process.env.ENABLE_GRAPHIQL.match(/^true$/i),
 		})(req, res, next),
 	)
