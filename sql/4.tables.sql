@@ -42,6 +42,26 @@ Create Table book_summary (
   UNIQUE (user_id, book_id)
 );
 
+create trigger book_summary_updated_at before update
+  on book_summary
+  for each row
+  execute procedure set_updated_at();
+
+Create Table chapter_summary (
+  id serial primary key,
+  summary text not null DEFAULT '',
+  user_id int not null REFERENCES public."user"(id),
+  book_id int not null check(book_id >= 1 and book_id <= 66),
+  chapter int not null check(chapter >= 1),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create trigger chapter_summary_updated_at before update
+  on chapter_summary
+  for each row
+  execute procedure set_updated_at();
+
 Create Table verses_summary (
   id serial primary key,
   title text not null DEFAULT '',
