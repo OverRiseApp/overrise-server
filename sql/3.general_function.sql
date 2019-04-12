@@ -1,8 +1,8 @@
 \c overrise
 
-create function set_updated_at() returns trigger as $$
-begin
+CREATE FUNCTION set_updated_at() RETURNS TRIGGER AS $$
+BEGIN
   new.updated_at := current_timestamp;
-  return new;
-end;
-$$ language plpgsql;
+  RETURN new;
+END;
+$$ LANGUAGE PLPGSQL;
