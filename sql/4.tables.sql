@@ -1,11 +1,11 @@
 \c overrise  
 
-CREATE TYPE jwt_token AS (
+CREATE TYPE JWT_TOKEN AS (
   role TEXT,
   user_id INTEGER
 );
 
-CREATE TYPE user_type AS ENUM ('standard_user');
+CREATE TYPE USER_TYPE AS ENUM ('standard_user');
 
 CREATE TABLE "knex_migrations" (
   id SERIAL PRIMARY KEY,
@@ -19,12 +19,15 @@ CREATE TABLE "knex_migrations_lock" (
   is_locked INTEGER NULL
 );
 
+----------
+-- User --
+----------
 CREATE TABLE "user" (
   id SERIAL PRIMARY KEY,
   first_name TEXT NOT NULL DEFAULT '',
   last_name TEXT NOT NULL DEFAULT '',
   email_address TEXT NOT NULL DEFAULT '',
-  user_type user_type NOT NULL DEFAULT 'standard_user',
+  user_type USER_TYPE NOT NULL DEFAULT 'standard_user',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -32,8 +35,17 @@ CREATE TABLE private."user" (
   id SERIAL PRIMARY KEY REFERENCES public."user",
   hashed_password TEXT NOT NULL
 );
+
+CREATE TRIGGER user_updated_at BEFORE UPDATE
+  ON "user"
+  FOR EACH ROW
+  EXECUTE PROCEDURE set_updated_at();
+
 ALTER TABLE "user" ENABLE ROW LEVEL SECURITY;
 
+------------------
+-- Book Summary --
+------------------
 CREATE TABLE book_summary (
   id SERIAL PRIMARY KEY,
   summary TEXT NOT NULL DEFAULT '',
@@ -49,6 +61,9 @@ CREATE TRIGGER book_summary_updated_at BEFORE UPDATE
   FOR EACH ROW
   EXECUTE PROCEDURE set_updated_at();
 
+---------------------
+-- Chapter Summary --
+---------------------
 CREATE TABLE chapter_summary (
   id SERIAL PRIMARY KEY,
   summary TEXT NOT NULL DEFAULT '',
@@ -64,6 +79,9 @@ CREATE TRIGGER chapter_summary_updated_at BEFORE UPDATE
   FOR EACH ROW
   EXECUTE PROCEDURE set_updated_at();
 
+--------------------
+-- Verses Summary --
+--------------------
 CREATE TABLE verses_summary (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL DEFAULT '',
@@ -84,6 +102,9 @@ CREATE TRIGGER verses_summary_updated_at BEFORE UPDATE
   FOR EACH ROW
   EXECUTE PROCEDURE set_updated_at();
 
+------------------------
+-- Chapter of the Day --
+------------------------
 -- This will hold the chapters for x day
 CREATE TABLE chapter_of_the_day (
   chapter_date DATE NOT NULL PRIMARY KEY,
