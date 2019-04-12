@@ -25,7 +25,8 @@ Create Table "user" (
   last_name text not null DEFAULT '',
   email_address text not null DEFAULT '',
   user_type user_type not null DEFAULT 'standard_user',
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
 );
 Create Table private."user" (
   id serial primary key REFERENCES public."user",
@@ -39,6 +40,7 @@ Create Table book_summary (
   user_id int not null REFERENCES public."user"(id),
   book_id int not null check(book_id >= 1 and book_id <= 66),
   created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
   UNIQUE (user_id, book_id)
 );
 
@@ -73,12 +75,18 @@ Create Table verses_summary (
   end_book_id int not null check(end_book_id >= 1 and end_book_id <= 66),
   end_chapter int not null check(end_chapter >= 1),
   end_verse int not null check(end_verse >= 1),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
 );
+
+create trigger verses_summary_updated_at before update
+  on verses_summary
+  for each row
+  execute procedure set_updated_at();
 
 -- This will hold the chapters for x day
 CREATE TABLE chapter_of_the_day (
   chapter_date DATE NOT NULL PRIMARY KEY,
   book_id INT NOT NULL,
-  chapter INT NOT NULL
+  chapter INT NOT NULL check(chapter >= 1)
 )
