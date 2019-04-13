@@ -8,7 +8,7 @@ RUN yarn --prod --ignore-engines
 
 COPY . .
 
-FROM node:alpine
+FROM mhart/alpine-node:base
 
 WORKDIR /var/www/backend/
 
