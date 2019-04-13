@@ -36,6 +36,8 @@ CREATE TABLE private."user" (
   hashed_password TEXT NOT NULL
 );
 
+CREATE UNIQUE INDEX email_address_idx ON "user"(email_address);
+
 CREATE TRIGGER user_updated_at BEFORE UPDATE
   ON "user"
   FOR EACH ROW
@@ -56,6 +58,8 @@ CREATE TABLE book_summary (
   UNIQUE (user_id, book_id)
 );
 
+CREATE INDEX book_summary_user_id_idx ON book_summary(user_id);
+
 CREATE TRIGGER book_summary_updated_at BEFORE UPDATE
   ON book_summary
   FOR EACH ROW
@@ -75,6 +79,8 @@ CREATE TABLE chapter_summary (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE INDEX chapter_summary_user_id_idx ON chapter_summary(user_id);
 
 CREATE TRIGGER chapter_summary_updated_at BEFORE UPDATE
   ON chapter_summary
@@ -100,6 +106,8 @@ CREATE TABLE verses_summary (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE INDEX verses_summary_user_id_idx ON verses_summary(user_id);
 
 CREATE TRIGGER verses_summary_updated_at BEFORE UPDATE
   ON verses_summary
