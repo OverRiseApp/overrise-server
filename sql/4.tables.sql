@@ -65,7 +65,7 @@ CREATE TRIGGER book_summary_updated_at BEFORE UPDATE
   FOR EACH ROW
   EXECUTE PROCEDURE set_updated_at();
 
-ALTER TABLE "user" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "book_summary" ENABLE ROW LEVEL SECURITY;
 
 ---------------------
 -- Chapter Summary --
@@ -87,7 +87,7 @@ CREATE TRIGGER chapter_summary_updated_at BEFORE UPDATE
   FOR EACH ROW
   EXECUTE PROCEDURE set_updated_at();
 
-ALTER TABLE "user" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "chapter_summary" ENABLE ROW LEVEL SECURITY;
 
 --------------------
 -- Verses Summary --
@@ -114,7 +114,7 @@ CREATE TRIGGER verses_summary_updated_at BEFORE UPDATE
   FOR EACH ROW
   EXECUTE PROCEDURE set_updated_at();
 
-ALTER TABLE "user" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "verses_summary" ENABLE ROW LEVEL SECURITY;
 
 ------------------------
 -- Chapter of the Day --

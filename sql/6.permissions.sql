@@ -18,7 +18,7 @@ CREATE POLICY update_user on "user" for UPDATE USING (id = NULLIF(current_settin
 --------------------
 -- TODO: Double check this. Currently not used after the rework.
 GRANT SELECT, INSERT, UPDATE, DELETE on book_summary TO standard_user;
-CREATE POLICY all_book_summary on book_summary for SELECT USING (id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
+CREATE POLICY all_book_summary on book_summary for SELECT USING (user_id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
 
 -----------------------
 -- Chapter Summaries --
@@ -36,18 +36,18 @@ CREATE POLICY select_chapter_summary ON chapter_summary FOR SELECT TO standard_u
   USING (TRUE);
 -- Other actions
 CREATE POLICY insert_chapter_summary ON chapter_summary FOR INSERT TO standard_user
-  WITH CHECK (id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
+  WITH CHECK (user_id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
 CREATE POLICY update_chapter_summary ON chapter_summary FOR UPDATE TO standard_user
-  USING (id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
+  USING (user_id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
 CREATE POLICY delete_chapter_summary ON chapter_summary FOR DELETE TO standard_user
-  USING (id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
+  USING (user_id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
 
 ----------------------
 -- Verses Summaries --
 ----------------------
 -- TODO: Double check this. Currently not used after the rework.
 GRANT SELECT, INSERT, UPDATE, DELETE on verses_summary TO standard_user;
-CREATE POLICY all_verses_summary on verses_summary for SELECT USING (id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
+CREATE POLICY all_verses_summary on verses_summary for SELECT USING (user_id = NULLIF(current_setting('jwt.claims.user_id', true), '')::integer);
 
 ------------------------
 -- Chapter of the Day --
