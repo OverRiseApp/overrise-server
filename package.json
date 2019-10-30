@@ -22,7 +22,7 @@
 		"google-auth-library": "1.6.1",
 		"joi": "14.3.0",
 		"jsonwebtoken": "8.4.0",
-		"knex": "0.15.2",
+		"knex": "0.19.5",
 		"pg": "7.7.1",
 		"postgraphile": "4.3.3",
 		"raven": "2.6.4"
