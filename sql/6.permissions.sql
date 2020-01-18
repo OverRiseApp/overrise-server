@@ -54,3 +54,9 @@ CREATE POLICY all_verses_summary on verses_summary for SELECT USING (user_id = N
 ------------------------
 -- Everyone should be able to read this
 GRANT SELECT on chapter_of_the_day TO anonymous, standard_user;
+
+---------------
+-- ESV Bible --
+---------------
+-- Everyone should be able to read this as well
+GRANT SELECT on esv TO anonymous, standard_user;

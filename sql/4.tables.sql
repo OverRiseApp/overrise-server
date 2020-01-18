@@ -124,4 +124,16 @@ CREATE TABLE chapter_of_the_day (
   chapter_date DATE NOT NULL PRIMARY KEY,
   book_id INT NOT NULL,
   chapter INT NOT NULL CHECK(chapter >= 1)
-)
+);
+
+---------------
+-- ESV Bible --
+---------------
+CREATE TABLE esv (
+  book_id INT NOT NULL CHECK(book_id >= 1 AND book_id <= 66),
+  chapter INT NOT NULL CHECK(chapter >= 1),
+  verse INT NOT NULL CHECK(verse >= 1),
+  content TEXT NOT NULL
+);
+
+CREATE INDEX esv_idx ON esv(book_id, chapter, verse);
